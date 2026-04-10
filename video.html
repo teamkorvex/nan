@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Video Player</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        video {
+            width: 100vw;
+            max-width: 100%;
+            max-height: 100vh;
+            object-fit: contain; /* Keeps the whole video visible without stretching it */
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <video 
+        id="player"
+        src="People%20Falling%20Down%20Stairs%20Funny%20Compilation.mp4" 
+        autoplay 
+        loop 
+        muted 
+        playsinline 
+        controls>
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        const video = document.getElementById('player');
+
+        // It is strictly required by browsers to start muted, or else it won't autoplay at all!
+        video.muted = true;
+        video.play();
+
+        // Fallback: Because modern browsers (Chrome, Edge, Safari) aggressively block unmuted autoplay 
+        // to prevent spam, clicking ANYWHERE on the screen will instantly blast the sound on, 
+        // so you don't even have to hunt for the volume button!
+        document.addEventListener('mousedown', () => {
+            if (video.muted || video.paused) {
+                video.muted = false;
+                video.play();
+            }
+        });
+    </script>
+</body>
+</html>
